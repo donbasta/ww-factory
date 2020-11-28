@@ -31,7 +31,12 @@ class BahanPabrik extends React.Component {
         .then(res => {
                 console.log(res.data);
                 parser(res.data, (err, res) => {
-                    console.log(res);
+                    // console.log(res);   
+                    let items = res["S:Envelope"]["S:Body"][0]["ns2:getAllBahanInFactoryResponse"][0]["return"];
+                    console.log(items);
+                    // for (let i = 0; i < items.length; i++) {
+                    //     console.log(items[i]);
+                    // }
                 })
                 // let dataJson = parser.toJson(res.data);
                 // console.log("to json -> %s", dataJson);
