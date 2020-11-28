@@ -9,12 +9,47 @@ class BeliBahanSupplier extends Component {
             namaBahan: "",
             jumlahBahan: 0,
             jumlahPembayaran: 0,
+            saldo: 0
         }
         this.tambahBahan = this.tambahBahan.bind(this);
         this.kurangBahan = this.kurangBahan.bind(this);
         this.handleInputJumlahPembayaran = this.handleInputJumlahPembayaran.bind(this);
         this.handleInputNamaBahan = this.handleInputNamaBahan.bind(this);
         this.sendPembelianRequestToSupplier = this.sendPembelianRequestToSupplier.bind(this);
+    }
+
+    componentDidMount() {
+        const xmlPayload = `\
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.factory.ww.com/">\
+    <soapenv:Header/>\
+    <soapenv:Body>\
+        <impl:getCurrentSaldo/>\
+    </soapenv:Body>\
+</soapenv:Envelope>`;
+        const parser = xml2js.parseString;
+        const instance = axios.create({
+            baseURL: "http://localhost:8080/"
+        });
+
+        instance
+            .post('/ws-factory/saldo?wsdl', 
+                    xmlPayload,
+                    { headers:
+                        { 
+                            'Content-Type': 'text/xml'
+                        }
+                    }
+                )
+            .then(res => {
+                    console.log(res.data);
+                    parser(res.data, (err, res) => {
+                        const currentSaldo = res["S:Envelope"]["S:Body"][0]["ns2:getCurrentSaldoResponse"][0]["return"];
+                        this.setState({ saldo: currentSaldo });
+                    })
+                })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     handleInputJumlahPembayaran = event => {
@@ -92,11 +127,15 @@ class BeliBahanSupplier extends Component {
             });
         
         callback(msg);
-    
-        
     }
 
     sendPembelianRequestToSupplier = event => {
+        if (this.state.saldo < this.state.jumlahPembayaran) {
+            alert(
+                'Uang pada saldo tidak mencukupi untuk melakukan pembayaran'
+            );
+            return;
+        }
         const requestPayload = this.createRequestPayload();
         const instance = axios.create({
             baseURL: "http://localhost:3030/"
@@ -149,6 +188,11 @@ class BeliBahanSupplier extends Component {
                 >
                     Beli Bahan
                 </button>
+                <input
+                    type="text"
+                    value={this.state.saldo}
+                    readOnly
+                />
             </div>
         )
     }
