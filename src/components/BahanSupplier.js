@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class BahanSupplier extends React.Component {
+class BahanSupplier extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            bahanInSupplier: []
+            data: []
         };
     }
 
@@ -15,9 +15,7 @@ class BahanSupplier extends React.Component {
         });
         instance.get('/supply?harga=1')
             .then(res => {
-                const data = res.data;
-                console.log(data);
-                this.setState({ bahanInSupplier: data });
+                this.setState({ data: res.data });
             })
             .catch ((error) => {
                 console.log("error fetching from api", error);
@@ -26,7 +24,7 @@ class BahanSupplier extends React.Component {
     }
 
     renderTableData() {
-        return this.state.bahanInSupplier.map((bahan, index) => {
+        return this.state.data.map((bahan, index) => {
             const { id_bahan, nama_bahan, harga_satuan } = bahan;
             return (
                 <tr key={ id_bahan }>
