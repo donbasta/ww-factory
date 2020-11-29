@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import ProtectedRoute from './components/hoc/ProtectedRoute';
+import Navigation from './components/General/Navigation';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import LogoutPage from './pages/LogoutPage';
+import HomePage from './pages/HomePage';
+import AuthContext from './context/AuthContext';
+import useProvideAuth from './helpers/useProvideAuth';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const auth = useProvideAuth();
+
+    return (
+        <AuthContext.Provider value={auth}>
+            <div className='App'>
+                <Router>
+                    {auth.user ? <Navigation /> : null}
+                    <Switch>
+                        <Route path='/login' exact>
+                            <LoginPage />
+                        </Route>
+                        <Route path='/register' exact>
+                            <RegisterPage />
+                        </Route>
+                        <ProtectedRoute path='/' exact>
+                            <HomePage />
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/logout' exact>
+                            <LogoutPage />
+                        </ProtectedRoute>
+                    </Switch>
+                </Router>
+            </div>
+        </AuthContext.Provider>
+    );
 }
 
 export default App;
