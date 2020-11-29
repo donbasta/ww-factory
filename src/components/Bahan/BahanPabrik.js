@@ -61,16 +61,18 @@ class BahanPabrik extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h1> Daftar Bahan di Pabrik </h1>
-                <table id='bahanPabrik' className="table-bahan">
-                    <tbody>
+            <div className="container bg-light mx-auto mt-5 p-5">
+                <h1 className="text-center m-2"> Daftar Bahan di Pabrik </h1>
+                <table id='bahanPabrik' className="table-hover mx-auto">
+                    <thead className="thead-dark">
                         <tr>
                             <td>No</td>
                             <td>Nama Bahan</td>
                             <td>Jumlah Bahan</td>
                             <td>Tanggal Kadaluarsa</td>
                         </tr>
+                    </thead>
+                    <tbody>
                         { this.renderTableData() }
                     </tbody>
                 </table>
