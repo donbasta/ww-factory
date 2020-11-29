@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import Aux from '../components/hoc/Aux';
+import Auxiliary from '../components/hoc/Auxiliary';
 import AuthContext from '../context/AuthContext';
 
 const RegisterPage = () => {
@@ -20,7 +20,7 @@ const RegisterPage = () => {
     };
 
     return (
-        <Aux>
+        <Auxiliary>
             <header className='jumbotron'>Willy Wangky's Factory</header>
             <div className='container'>
                 <div className='row'>
@@ -77,7 +77,7 @@ const RegisterPage = () => {
                     </div>
                 </div>
             </div>
-        </Aux>
+        </Auxiliary>
     );
 };
 

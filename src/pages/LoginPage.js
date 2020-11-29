@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import Aux from '../components/hoc/Aux';
+import Auxiliary from '../components/hoc/Auxiliary';
 import '../components/Login/Login.css';
 import AuthContext from '../context/AuthContext';
 
@@ -20,7 +20,7 @@ const LoginPage = () => {
     };
 
     return (
-        <Aux>
+        <Auxiliary>
             <header className='jumbotron'>Willy Wangky's Factory</header>
             <div className='container'>
                 <div className='row'>
@@ -62,7 +62,7 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-        </Aux>
+        </Auxiliary>
     );
 };
 
