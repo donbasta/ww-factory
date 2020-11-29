@@ -1,0 +1,79 @@
+.button-submit {
+  cursor: pointer;
+  border: 1px solid #1a202c;
+  padding: 8px;
+  min-width: 64px;
+  margin: 10px;
+  background: transparent;
+  transition: all 0.1s ease-in;
+}
+   
+.button-submit:hover {
+  background: #1a202c;
+  color: #ffffff;
+}
+
+.button-add {
+  cursor: pointer;
+  /* border: 1px solid #0a6e0d; */
+  border: 0px;
+  padding: 8px;
+  min-width: 64px;
+  margin: 10px;
+  /* background: transparent; */
+  background: #b3c6b3;
+  transition: all 0.1s ease-in;
+  font-size: 30px;
+}
+  
+.button-add:hover {
+  background: #0a6e0d;
+  color: #ffffff;
+}
+
+.button-subtract {
+  cursor: pointer;
+  border: 0px;
+  padding: 8px;
+  min-width: 64px;
+  margin: 10px;
+  background: transparent;
+  background: #dabdbd;
+  transition: all 0.1s ease-in;
+  font-size: 30px;
+}
+  
+.button-subtract:hover {
+  background: #a90a0a;
+  color: #ffffff;
+}
+
+
+
+.container {
+  background-color: rgba(203, 153, 126, 0.5);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.table_bahan {
+    border: 3px solid black;
+    width: 100%;
+}
+
+input {
+  text-align: center;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}

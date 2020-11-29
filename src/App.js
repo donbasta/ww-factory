@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LogoutPage from './pages/LogoutPage';
 import HomePage from './pages/HomePage';
+import BahanPage from './pages/BahanPage';
 import AuthContext from './context/AuthContext';
 import useProvideAuth from './helpers/useProvideAuth';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -26,6 +27,9 @@ function App() {
                         <ProtectedRoute path='/' exact>
                             <HomePage />
                         </ProtectedRoute>
+                        <Route path='/bahan' exact>
+                            <BahanPage />
+                        </Route>
                         <ProtectedRoute path='/logout' exact>
                             <LogoutPage />
                         </ProtectedRoute>
