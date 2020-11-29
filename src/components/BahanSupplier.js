@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../styles/bahan.css';
 
 class BahanSupplier extends Component {
     constructor(props) {

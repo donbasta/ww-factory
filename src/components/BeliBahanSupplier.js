@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import xml2js from 'xml2js';
+import '../styles/bahan.css';
 
 class BeliBahanSupplier extends Component {
     constructor(props) {
@@ -190,35 +191,48 @@ class BeliBahanSupplier extends Component {
     render() {
         return (
             <div>
-                <input
-                    type="text"
-                    placeholder="Masukkan nama bahan yang ingin dibeli"
-                    value={this.state.namaBahan}
-                    onChange={this.handleInputNamaBahan}
-                />
-                <input
-                    type="text"
-                    placeholder="Masukkan jumlah uang untuk melakukan pembelian"
-                    value={this.state.jumlahPembayaran}
-                    onChange={this.handleInputJumlahPembayaran}
-                />
-                <button onClick={this.kurangBahan}> - </button>
-                <input
-                    type="text"
-                    value={this.state.jumlahBahan}
-                    readOnly
-                />
-                <button onClick={this.tambahBahan}> + </button>
-                <button
+                <h1> Beli Bahan from Supplier! </h1>
+                <div className="form-beli">
+                    <h3> Nama Bahan </h3>
+                    <input
+                        type="text"
+                        placeholder="Masukkan nama bahan yang ingin dibeli"
+                        value={this.state.namaBahan}
+                        onChange={this.handleInputNamaBahan}
+                    />
+                </div>
+                <div className="form-beli">
+                    <h3> Jumlah Pembayaran </h3>
+                    <input
+                        type="text"
+                        placeholder="Masukkan jumlah uang untuk melakukan pembelian"
+                        value={this.state.jumlahPembayaran}
+                        onChange={this.handleInputJumlahPembayaran}
+                    />
+                    <h4> Sisa Saldo anda: </h4>
+                    <input
+                        type="text"
+                        value={this.state.saldo}
+                        readOnly
+                    />
+                </div>
+                <div className="form-beli">
+                    <h3> Jumlah Bahan yang Ingin dibeli </h3>
+                    <button onClick={this.kurangBahan}> - </button>
+                    <input
+                        type="text"
+                        value={this.state.jumlahBahan}
+                        readOnly
+                    />
+                    <button onClick={this.tambahBahan}> + </button>
+                </div>
+                <h3></h3>
+                <button className="button-submit"
                     onClick={this.sendPembelianRequestToSupplier}
                 >
-                    Beli Bahan
+                    Beli Bahan!
                 </button>
-                <input
-                    type="text"
-                    value={this.state.saldo}
-                    readOnly
-                />
+
             </div>
         )
     }

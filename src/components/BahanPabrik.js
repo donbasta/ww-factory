@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import xml2js from 'xml2js';
+import '../styles/bahan.css';
 
 class BahanPabrik extends Component {
     constructor(props) {
