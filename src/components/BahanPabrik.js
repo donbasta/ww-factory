@@ -61,9 +61,9 @@ class BahanPabrik extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1> Daftar Bahan di Pabrik </h1>
-                <table id='bahanPabrik'>
+                <table id='bahanPabrik' className="table-bahan">
                     <tbody>
                         <tr>
                             <td>No</td>

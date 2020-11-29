@@ -39,9 +39,9 @@ class BahanSupplier extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1> Daftar Bahan di Supplier </h1>
-                <table id='bahanSupplier'>
+                <table id='bahanSupplier' className="table-bahan">
                     <tbody>
                         <tr>
                             <td>ID Bahan</td>

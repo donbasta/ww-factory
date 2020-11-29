@@ -192,7 +192,7 @@ class BeliBahanSupplier extends Component {
         return (
             <div>
                 <h1> Beli Bahan from Supplier! </h1>
-                <div className="form-beli">
+                <div className="container">
                     <h3> Nama Bahan </h3>
                     <input
                         type="text"
@@ -201,9 +201,10 @@ class BeliBahanSupplier extends Component {
                         onChange={this.handleInputNamaBahan}
                     />
                 </div>
-                <div className="form-beli">
+                <div className="container">
                     <h3> Jumlah Pembayaran </h3>
                     <input
+                        className="form-input-text"
                         type="text"
                         placeholder="Masukkan jumlah uang untuk melakukan pembelian"
                         value={this.state.jumlahPembayaran}
@@ -211,20 +212,22 @@ class BeliBahanSupplier extends Component {
                     />
                     <h4> Sisa Saldo anda: </h4>
                     <input
+                        className="form-input-text"
                         type="text"
                         value={this.state.saldo}
                         readOnly
                     />
                 </div>
-                <div className="form-beli">
+                <div className="container">
                     <h3> Jumlah Bahan yang Ingin dibeli </h3>
-                    <button onClick={this.kurangBahan}> - </button>
+                    <button className="button-subtract" onClick={this.kurangBahan}> - </button>
                     <input
+                        className="form-input-text"
                         type="text"
                         value={this.state.jumlahBahan}
                         readOnly
                     />
-                    <button onClick={this.tambahBahan}> + </button>
+                    <button className="button-add" onClick={this.tambahBahan}> + </button>
                 </div>
                 <h3></h3>
                 <button className="button-submit"
