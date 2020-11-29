@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Auxiliary from '../components/hoc/Auxiliary';
 import '../components/Login/Login.css';
 import AuthContext from '../context/AuthContext';
@@ -25,7 +25,7 @@ const LoginPage = () => {
             <div className='container'>
                 <div className='row'>
                     <div className='col-12 col-md-6 mx-auto'>
-                        <form onSubmit={submitHandler}>
+                        <form className='mb-5' onSubmit={submitHandler}>
                             <div className='form-group'>
                                 <label htmlFor='username'>Username</label>
                                 <input
@@ -59,6 +59,7 @@ const LoginPage = () => {
                                 Submit
                             </button>
                         </form>
+                        <Link to='/register'>Haven't registered yet?</Link>
                     </div>
                 </div>
             </div>
