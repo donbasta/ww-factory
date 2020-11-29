@@ -202,13 +202,13 @@ class BeliBahanSupplier extends Component {
                     value={this.state.jumlahPembayaran}
                     onChange={this.handleInputJumlahPembayaran}
                 />
-                <button onClick={this.tambahBahan}> + </button>
+                <button onClick={this.kurangBahan}> - </button>
                 <input
                     type="text"
                     value={this.state.jumlahBahan}
                     readOnly
                 />
-                <button onClick={this.kurangBahan}> - </button>
+                <button onClick={this.tambahBahan}> + </button>
                 <button
                     onClick={this.sendPembelianRequestToSupplier}
                 >
