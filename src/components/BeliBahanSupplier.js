@@ -222,7 +222,6 @@ class BeliBahanSupplier extends Component {
             </div>
         )
     }
-
 }
 
 export default BeliBahanSupplier;
