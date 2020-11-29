@@ -190,9 +190,9 @@ class BeliBahanSupplier extends Component {
 
     render() {
         return (
-            <div>
-                <h1> Beli Bahan from Supplier! </h1>
-                <div className="container">
+            <div className="container bg-light mx-auto mt-5 p-5">
+                <h1 className="text-center"> Beli Bahan from Supplier! </h1>
+                <div className="container mx-auto mt-3 mb-3">
                     <h3> Nama Bahan </h3>
                     <input
                         type="text"
@@ -201,7 +201,7 @@ class BeliBahanSupplier extends Component {
                         onChange={this.handleInputNamaBahan}
                     />
                 </div>
-                <div className="container">
+                <div className="container mx-auto mt-3 mb-3">
                     <h3> Jumlah Pembayaran </h3>
                     <input
                         className="form-input-text"
@@ -218,24 +218,27 @@ class BeliBahanSupplier extends Component {
                         readOnly
                     />
                 </div>
-                <div className="container">
+                <div className="container mx-auto mt-3 mb-3">
                     <h3> Jumlah Bahan yang Ingin dibeli </h3>
-                    <button className="button-subtract" onClick={this.kurangBahan}> - </button>
-                    <input
-                        className="form-input-text"
-                        type="text"
-                        value={this.state.jumlahBahan}
-                        readOnly
-                    />
-                    <button className="button-add" onClick={this.tambahBahan}> + </button>
+                    <div className="container mx-auto">
+                        <button className="btn btn-primary" onClick={this.kurangBahan}> - </button>
+                        <input
+                            className="form-input-text"
+                            type="text"
+                            value={this.state.jumlahBahan}
+                            readOnly
+                        />
+                        <button className="btn btn-primary" onClick={this.tambahBahan}> + </button>
+                    </div>
                 </div>
                 <h3></h3>
-                <button className="button-submit"
-                    onClick={this.sendPembelianRequestToSupplier}
-                >
-                    Beli Bahan!
-                </button>
-
+                <div className="mx-auto mt-3 mb-3">
+                    <button className="btn btn-primary"
+                        onClick={this.sendPembelianRequestToSupplier}
+                    >
+                        Beli Bahan!
+                    </button>
+                </div>
             </div>
         )
     }
