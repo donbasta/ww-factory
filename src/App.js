@@ -8,6 +8,8 @@ import BahanPage from './pages/BahanPage';
 import AuthContext from './context/AuthContext';
 import useProvideAuth from './helpers/useProvideAuth';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import StockRequestPage from './pages/StockRequestPage';
+import ResepPage from './pages/ResepPage';
 
 function App() {
     const auth = useProvideAuth();
@@ -29,6 +31,12 @@ function App() {
                         </ProtectedRoute>
                         <Route path='/bahan' exact>
                             <BahanPage />
+                        </Route>
+                        <Route path='/request' exact>
+                            <StockRequestPage />
+                        </Route>
+                        <Route path='/resepcoklat' exact>
+                            <ResepPage />
                         </Route>
                         <ProtectedRoute path='/logout' exact>
                             <LogoutPage />
