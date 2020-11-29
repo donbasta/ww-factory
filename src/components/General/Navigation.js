@@ -72,12 +72,12 @@ const Navigation = (props) => {
                             </li>
                             <li
                                 className={`nav-item ${
-                                    props.location.pathname === '/pesanan'
+                                    props.location.pathname === '/request'
                                         ? 'active'
                                         : ''
                                 }`}
                             >
-                                <Link className='nav-link' to='/pesanan'>
+                                <Link className='nav-link' to='/request'>
                                     Pesanan Coklat
                                 </Link>
                             </li>

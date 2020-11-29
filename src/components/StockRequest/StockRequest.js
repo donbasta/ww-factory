@@ -51,7 +51,7 @@ class StockRequest extends Component {
   handleClick = (e) => {
       e.preventDefault();
       let data = e.target.value.split(',')
-      // console.log(data);
+      console.log(data);
       let id_req = data[0];
       let id_cok = data[1];
       let jumlah = data[2];
@@ -87,7 +87,7 @@ class StockRequest extends Component {
     if (result === 'true') {
       let message = "Berhasil approve request dengan id: " + id_req;
       alert(message);
-      window.location.replace('http://localhost:3000/');
+      //window.location.replace('http://localhost:3000/');
     } else {
         let message2 = "Stok di factory tidak cukup. Akan dibuat coklat terlebih dahulu jika bahan cukup";
         alert(message2);
@@ -120,15 +120,15 @@ class StockRequest extends Component {
     const {requeststok} = this.state;
     return (
       <div>
-        <div className="flex-container">
+        <div className="bg-light">
           <h3> Lihat Add Stock Request </h3>
-        </div> <center>
+        </div> <center> 
         {
           requeststok.length > 0 ? requeststok.map(request => {
             const {id_request, id_coklat, jumlah , status} = request;
             return (
               <div key={id_request}>
-                <table border="1" className="table">
+                <table className="table table-bordered">
                   <thead>
                     <tr> 
                       <td> <b> ID Request </b></td>
@@ -143,7 +143,7 @@ class StockRequest extends Component {
                       <td> {id_coklat} </td>
                       <td> {jumlah} </td>
                       <td> {status} </td> 
-                      <td> <button className="btn-add" value={[id_request, id_coklat, jumlah, status]} onClick={this.handleClick}> <b>Approve</b> </button> </td> 
+                      <td> <button className="btn btn-primary btn-block" value={[id_request, id_coklat, jumlah, status]} onClick={this.handleClick}> <b>Approve</b> </button> </td> 
                     </tr>
                   </tbody>
                 </table>
