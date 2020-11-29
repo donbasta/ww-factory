@@ -62,12 +62,10 @@ class BeliBahanSupplier extends Component {
 
     tambahBahan = event => {
         this.setState({ jumlahBahan: this.state.jumlahBahan + 1 });
-        console.log("LOL", this.state.jumlahBahan);
     }
     
     kurangBahan = event => {
         this.setState({ jumlahBahan: Math.max(0, this.state.jumlahBahan - 1) });
-        console.log("LOL", this.state.jumlahBahan);
     }
 
     createRequestPayload() {
@@ -82,8 +80,27 @@ class BeliBahanSupplier extends Component {
         }
     }
 
-    sendHasilPembelianToPabrik(data, callback) {
-        const xmlPayload = `\
+    async sendHasilPembelianToPabrik(data, pembayaran, callback) {
+        const instance = axios.create({
+            baseURL: "http://localhost:8080/"
+        });
+        const parser = xml2js.parseString;
+        let msg = "";
+
+        const sisaSaldo = this.state.saldo - pembayaran;
+        console.log("Saldo saat ini: ", this.state.saldo);
+        console.log("Pembayaran: ", pembayaran)
+        const xmlPayloadSaldo =`
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.factory.ww.com/">\
+   <soapenv:Header/>\
+   <soapenv:Body>\
+      <impl:addSaldo>\
+         <newSaldo>${sisaSaldo}</newSaldo>\
+      </impl:addSaldo>\
+   </soapenv:Body>\
+</soapenv:Envelope>`;
+
+        const xmlPayloadBahan = `\
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:impl="http://impl.service.factory.ww.com/">\
    <soapenv:Header/>\
    <soapenv:Body>\
@@ -94,37 +111,46 @@ class BeliBahanSupplier extends Component {
       </impl:addBahan>\
    </soapenv:Body>\
 </soapenv:Envelope>`;
-        const parser = xml2js.parseString;
-        const instance = axios.create({
-            baseURL: "http://localhost:8080/"
-        });
 
-        let msg = "";
-        instance
+        const [bahanResponse, saldoResponse] = await Promise.all([
+            instance
             .post('/ws-factory/bahan?wsdl', 
-                    xmlPayload,
+                    xmlPayloadBahan,
                     { headers:
                         { 
                             'Content-Type': 'text/xml'
                         }
                     }
-                )
-            .then(res => {
-                    console.log(res.data);
-                    parser(res.data, (err, res) => {
-                        const items = res["S:Envelope"]["S:Body"][0]["ns2:addBahanResponse"][0]["return"];
-                        console.log(items);
-                        if (items === false) {
-                            msg = "Terdapat error pada pabrik sehingga transaksi bahan dibatalkan.";
-                        } else {
-                            msg = "Transaksi Berhasil";
+                ),
+            instance
+                .post('/ws-factory/saldo?wsdl', 
+                        xmlPayloadSaldo,
+                        { headers:
+                            { 
+                                'Content-Type': 'text/xml'
+                            }
                         }
-                    })
-                })
-            .catch(err => {
-                console.log(err);
-                msg = err;
-            });
+                    )
+        ]);
+
+        parser(bahanResponse.data, (err, res) => {
+            const items = res["S:Envelope"]["S:Body"][0]["ns2:addBahanResponse"][0]["return"];
+            console.log(items);
+            if (items === false) {
+                msg = "Terdapat error pada pabrik sehingga transaksi bahan dibatalkan.";
+            } else {
+                msg = "Transaksi Berhasil";
+            }
+        })
+
+        parser(saldoResponse.data, (err, res) => {
+            const status = res["S:Envelope"]["S:Body"][0]["ns2:addSaldoResponse"][0]["return"];
+            if (status === false) {
+                msg = "Terdapat kesalahan saat update saldo, transaksi dibatalkan";
+            } else {
+                msg = "Transaksi Berhasil";
+            }
+        })
         
         callback(msg);
     }
@@ -146,7 +172,7 @@ class BeliBahanSupplier extends Component {
                 if (res.data.status === "failed") {
                     throw `Transaksi gagal karena uang tidak cukup. Dibutuhkan tambahan ${res.data.need} rupiah.`
                 } else {
-                    this.sendHasilPembelianToPabrik(requestPayload.buyList[0], (status) => {
+                    this.sendHasilPembelianToPabrik(requestPayload.buyList[0], res.data.value, (status) => {
                         console.log("statusnya: ", status);
                         if (status === "Transaksi Berhasil") {
                             alert(status)
